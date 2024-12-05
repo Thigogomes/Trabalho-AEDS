@@ -1,20 +1,15 @@
-all: main
+all: pizzaria.exe
 
-main: pizza.o ingrediente.o main.o
-	gcc pizza.o ingrediente.o main.o -o main
+pizzaria.exe: main.o pizza.o ingrediente.o
+	gcc -Wall -g -o pizzaria.exe main.o pizza.o ingrediente.o
 
-pizza.o: pizza.c pizza.h
-	gcc -c pizza.c
-
-ingrediente.o: ingrediente.c ingrediente.h
-	gcc -c ingrediente.c
-
-main.o: main.c
-	gcc -c main.c
+%.o: %.c pizza.h ingrediente.h
+	gcc -Wall -g -c $< -o $@
 
 clean:
-	rm -rf *.o main
+	del main.o pizza.o ingrediente.o pizzaria.exe
 
-run:
-	./main
+run: pizzaria.exe
+	./pizzaria.exe
+
 
